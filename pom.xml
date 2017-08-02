@@ -8,6 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>rlabs-flyway-maven</name>
+	<description>Flyway database migrations using maven</description>
 	<url>https://github.com/ryanpadilha</url>
 
 	<developers>
@@ -24,9 +25,16 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<flyway.version>4.2.0</flyway.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+			<version>${flyway.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -34,4 +42,36 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<compilerVersion>${java.version}</compilerVersion>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway.version}</version>
+				<configuration>
+					<configFile>src/main/resources/db/config/flyway.properties</configFile>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>9.2-1002.jdbc4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+
+		<finalName>${project.name}</finalName>
+	</build>
 </project>

@@ -12,7 +12,8 @@ By the way, the Flyway doesn't create the database, its need to be created outsi
 
 For execute, simple follow the statement:<br>
 
-$ mvn clean compile flyway:migrate
+$ mvn clean compile flyway:migrate<br>
+$ mvn clean compile flyway:info
 <br><br>
 More details can be found on [Flyway Documentation](https://flywaydb.org/documentation/).<br>
 
