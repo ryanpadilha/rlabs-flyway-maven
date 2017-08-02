@@ -43,6 +43,26 @@
 		</dependency>
 	</dependencies>
 
+	<!-- profile environment configuration -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<build.profile.id>development</build.profile.id>
+			</properties>
+		</profile>
+		<profile>
+			<id>stg</id>
+			<properties>
+				<build.profile.id>stage</build.profile.id>
+			</properties>
+		</profile>
+	</profiles>
+
+	<!-- build configuration -->
 	<build>
 		<plugins>
 			<plugin>
@@ -71,7 +91,20 @@
 				</dependencies>
 			</plugin>
 		</plugins>
+		
+		<filters>
+			<filter>db/config/${build.profile.id}.properties</filter>
+		</filters>
+
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 
 		<finalName>${project.name}</finalName>
 	</build>
+
+
 </project>
