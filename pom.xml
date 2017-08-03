@@ -22,6 +22,13 @@
 		</developer>
 	</developers>
 
+	<licenses>
+		<license>
+			<name>Apache Licence 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
@@ -53,13 +60,52 @@
 			<properties>
 				<build.profile.id>development</build.profile.id>
 			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<version>${flyway.version}</version>
+						<configuration>
+							<configFile>src/main/resources/db/config/flyway-dev.properties</configFile>
+						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>postgresql</groupId>
+								<artifactId>postgresql</artifactId>
+								<version>9.2-1002.jdbc4</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>stg</id>
 			<properties>
 				<build.profile.id>stage</build.profile.id>
 			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.flywaydb</groupId>
+						<artifactId>flyway-maven-plugin</artifactId>
+						<version>${flyway.version}</version>
+						<configuration>
+							<configFile>src/main/resources/db/config/flyway-stg.properties</configFile>
+						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>postgresql</groupId>
+								<artifactId>postgresql</artifactId>
+								<version>9.2-1002.jdbc4</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
+
 	</profiles>
 
 	<!-- build configuration -->
@@ -68,6 +114,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 					<compilerVersion>${java.version}</compilerVersion>
@@ -75,36 +122,9 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>${flyway.version}</version>
-				<configuration>
-					<configFile>src/main/resources/db/config/flyway.properties</configFile>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>postgresql</groupId>
-						<artifactId>postgresql</artifactId>
-						<version>9.2-1002.jdbc4</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 		</plugins>
-		
-		<filters>
-			<filter>db/config/${build.profile.id}.properties</filter>
-		</filters>
-
-		<resources>
-			<resource>
-				<filtering>true</filtering>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
 
 		<finalName>${project.name}</finalName>
 	</build>
-
 
 </project>
