@@ -42,9 +42,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-## About the author
-
-[Ryan Padilha](http://ryanpadilha.com.br) is a JavaEE expert, SOA specialist and techinal writter.<br>
-Experience of 12+ years in solution design and development software.<br>
-Working nowadays on Software Architecture, Cloud Computing and Micro Services.
